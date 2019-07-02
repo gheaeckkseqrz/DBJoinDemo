@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <list>
-#include <optional>
 #include <sstream>
 #include <string>
 #include <variant>
