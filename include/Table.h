@@ -41,6 +41,8 @@ public:
 
   bool addColumn(std::string name, DataType t)
   {
+    if (hasColumn(name))
+      return false;
     _columns.emplace_back(std::move(name), t);
     return true;
   }

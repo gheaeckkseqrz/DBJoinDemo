@@ -2,7 +2,6 @@
 
 int main(int ac, char **av)
 {
-
   Table a;
   a.addColumn("Molecule", Table::DataType::STRING);
   a.addColumn("Solubility", Table::DataType::NUMBER);
