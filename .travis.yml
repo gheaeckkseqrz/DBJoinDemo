@@ -20,6 +20,6 @@ script:
     ############################################################################
      - mkdir -p build
      - cd build
-     - cmake ..
+     - ${MATRIX_EVAL} cmake ..
      - make
      - make test
