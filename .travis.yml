@@ -2,6 +2,12 @@ language: cpp
 matrix:
   include:
     - os: linux
+      addons:
+        apt:
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
       dist: xenial
     - os: osx
       osx_image: xcode10.2
