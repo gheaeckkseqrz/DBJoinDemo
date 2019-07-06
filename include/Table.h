@@ -183,9 +183,33 @@ public:
     for (auto const &c : _columns)
       joinResult.addColumn(c.name, c.datatype);
     // Include columns of second tables as long as they're not key
-    for (auto const &c : o._columns)
+    std::vector<unsigned int> foreignIndices;
+    for (unsigned int i(0) ; i< o._columns.size() ; ++i)
+      {
+	Columns c = o._columns[i];
         if (std::find_if(columns.begin(), columns.end(), [c](std::pair<std::string, std::string> k) { return k.second == c.name;}) == columns.end())
-          joinResult.addColumn(c.name, c.datatype);
+	  {
+	    joinResult.addColumn(c.name, c.datatype);
+	    foreignIndices.push_back(i);
+	  }
+      }
+
+    for (auto const &r : _rows)
+      {
+	std::list<std::pair<std::string, Value>> constrains;
+	for (auto const &on : columns)
+	  constrains.push_back(make_pair(on.second, r[columnIndex(on.first)]));
+	auto foreignMatches = o.getRecords(constrains);
+	for (auto const fr : foreignMatches)
+	  {
+	    Record newRecord = r;
+	    for (auto const &i : foreignIndices)
+	      newRecord.push_back(fr[i]);
+	    joinResult.addRecord(newRecord);
+	  }	
+      }
+    
+    
     return joinResult;
   }
 
