@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <iomanip>
 #include <list>
