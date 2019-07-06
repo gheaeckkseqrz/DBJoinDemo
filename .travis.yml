@@ -14,12 +14,15 @@ matrix:
     - os: osx
       osx_image: xcode10.2
 
+before_install:
+	- eval "${MATRIX_EVAL}"
+
 script:
     ############################################################################
     # Build main and tests
     ############################################################################
      - mkdir -p build
      - cd build
-     - ${MATRIX_EVAL} cmake ..
+     - cmake ..
      - make
      - make test
